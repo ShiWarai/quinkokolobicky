@@ -30,6 +30,7 @@
   <ItemGroup>
     <Compile Include="gui.py" />
     <Compile Include="main.pyw" />
+    <Compile Include="resurs_rc.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\" />
