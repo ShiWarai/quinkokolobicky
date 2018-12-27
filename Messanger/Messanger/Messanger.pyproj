@@ -22,12 +22,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.ico" />
-    <Content Include="Builder.exe" />
     <Content Include="data.qrc" />
     <Content Include="design.ui" />
     <Content Include="UI_Builder.bat" />
     <Content Include="version.rc" />
-    <Content Include="xcopy.exe" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gui.py" />
