@@ -19,7 +19,7 @@
   <property name="maximumSize">
    <size>
     <width>316</width>
-    <height>227</height>
+    <height>163</height>
    </size>
   </property>
   <property name="focusPolicy">
@@ -40,7 +40,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>100</y>
+      <y>110</y>
       <width>121</width>
       <height>41</height>
      </rect>
@@ -61,7 +61,7 @@
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>100</y>
+      <y>110</y>
       <width>121</width>
       <height>41</height>
      </rect>
@@ -84,12 +84,16 @@
       <x>30</x>
       <y>30</y>
       <width>251</width>
-      <height>61</height>
+      <height>71</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="1">
-      <widget class="QLineEdit" name="login"/>
+      <widget class="QLineEdit" name="login">
+       <property name="inputMask">
+        <string/>
+       </property>
+      </widget>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
@@ -104,7 +108,11 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="password"/>
+      <widget class="QLineEdit" name="password">
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
@@ -115,6 +123,13 @@
        </property>
        <property name="text">
         <string>Пароль</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QCheckBox" name="checkBox">
+       <property name="text">
+        <string>Запомнить</string>
        </property>
       </widget>
      </item>
