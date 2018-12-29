@@ -26,6 +26,15 @@ class Auth(QtWidgets.QMainWindow, design.Ui_MainWindow):
             error_.showMessage('Ошибка доступа!')
             sleep(1)
             self.close()
+        try:
+            file_pass=open(r'data\last_pass.dat','r')
+            file_pass_=file_pass.read()
+            file_pass.close()
+            self.login.setText(file_pass_.split('|')[0])
+            self.password.setText(file_pass_.split('|')[1])
+            self.checkBox.setChecked(True)
+        except:
+            pass
         self.setFocus()
     def update_program(self):
         self.yandex.download(r'app:/app/versions.txt','versions.txt')
@@ -59,6 +68,10 @@ class Auth(QtWidgets.QMainWindow, design.Ui_MainWindow):
     def start_log(self):
         if self.yandex.exists('app:/users/'+str(self.login.text())+'@quinkokolobicky.net') and self.yandex.exists('app:/users/'+str(self.login.text())+r'@quinkokolobicky.net/password_'+str(self.password.text())):
             main_=MainWindow(self,str(self.login.text())+'@quinkokolobicky.net',str(self.password.text()))
+            if self.checkBox.isChecked():
+                f1=open(r'data\last_pass.dat','w')
+                f1.write(str(self.login.text())+'|'+str(self.password.text()))
+                f1.close()
             main_.show()
             self.hide()
         else:
@@ -75,6 +88,7 @@ class MainWindow(QtWidgets.QMainWindow, design2.Ui_MainWindow):
         super().__init__(parent)
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
         # self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.email=r'app:/users/'+login+'/'
         self.setFocus()
         self.version_=100
         self.login=login

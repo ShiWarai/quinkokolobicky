@@ -53,49 +53,49 @@
     <property name="title">
      <string>Входящие</string>
     </property>
-    <addaction name="action_4"/>
-    <addaction name="action_5"/>
-    <addaction name="action_6"/>
+    <addaction name="open_input"/>
+    <addaction name="clear_input"/>
+    <addaction name="check_all"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
      <string>Исходящие</string>
     </property>
-    <addaction name="action_7"/>
-    <addaction name="action_9"/>
-    <addaction name="action_8"/>
+    <addaction name="open_output"/>
+    <addaction name="resend"/>
+    <addaction name="clear_output"/>
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
      <string>Новое письмо</string>
     </property>
-    <addaction name="action"/>
-    <addaction name="action_2"/>
-    <addaction name="action_3"/>
+    <addaction name="write"/>
+    <addaction name="use_old"/>
+    <addaction name="copy_from_imput"/>
    </widget>
    <widget class="QMenu" name="menu_4">
     <property name="title">
      <string>Спам</string>
     </property>
-    <addaction name="action_12"/>
-    <addaction name="action_13"/>
-    <addaction name="action_14"/>
-    <addaction name="action_15"/>
+    <addaction name="open_bl"/>
+    <addaction name="add_to_bl"/>
+    <addaction name="delete_from_bl"/>
+    <addaction name="clear_bl"/>
    </widget>
    <widget class="QMenu" name="menu_5">
     <property name="title">
      <string>Корзина</string>
     </property>
-    <addaction name="action_16"/>
-    <addaction name="action_17"/>
+    <addaction name="open_trash"/>
+    <addaction name="clear_trash"/>
    </widget>
    <widget class="QMenu" name="menu_6">
     <property name="title">
      <string>Другие папки</string>
     </property>
-    <addaction name="action_18"/>
-    <addaction name="action_19"/>
-    <addaction name="action_20"/>
+    <addaction name="open_other"/>
+    <addaction name="add_other"/>
+    <addaction name="delete_other"/>
    </widget>
    <widget class="QMenu" name="menu_7">
     <property name="title">
@@ -118,92 +118,92 @@
    <addaction name="menu_7"/>
    <addaction name="menu_8"/>
   </widget>
-  <action name="action">
+  <action name="write">
    <property name="text">
     <string>Написать</string>
    </property>
   </action>
-  <action name="action_2">
+  <action name="use_old">
    <property name="text">
     <string>Использовать шаблон</string>
    </property>
   </action>
-  <action name="action_3">
+  <action name="copy_from_imput">
    <property name="text">
     <string>Скопировать из исходящих</string>
    </property>
   </action>
-  <action name="action_4">
+  <action name="open_input">
    <property name="text">
     <string>Открыть</string>
    </property>
   </action>
-  <action name="action_5">
+  <action name="clear_input">
    <property name="text">
     <string>Очистить</string>
    </property>
   </action>
-  <action name="action_6">
+  <action name="check_all">
    <property name="text">
     <string>Отметить как прочтенное</string>
    </property>
   </action>
-  <action name="action_7">
+  <action name="open_output">
    <property name="text">
     <string>Открыть</string>
    </property>
   </action>
-  <action name="action_8">
+  <action name="clear_output">
    <property name="text">
     <string>Очистить</string>
    </property>
   </action>
-  <action name="action_9">
+  <action name="resend">
    <property name="text">
     <string>Переслать</string>
    </property>
   </action>
-  <action name="action_12">
+  <action name="open_bl">
    <property name="text">
     <string>Открыть</string>
    </property>
   </action>
-  <action name="action_13">
+  <action name="add_to_bl">
    <property name="text">
     <string>Добавить в ЧС нового абонента</string>
    </property>
   </action>
-  <action name="action_14">
+  <action name="delete_from_bl">
    <property name="text">
     <string>Удалить из ЧС абонента</string>
    </property>
   </action>
-  <action name="action_15">
+  <action name="clear_bl">
    <property name="text">
     <string>Очистить</string>
    </property>
   </action>
-  <action name="action_16">
+  <action name="open_trash">
    <property name="text">
     <string>Открыть</string>
    </property>
   </action>
-  <action name="action_17">
+  <action name="clear_trash">
    <property name="text">
     <string>Очистить</string>
    </property>
   </action>
-  <action name="action_18">
+  <action name="open_other">
    <property name="text">
     <string>Открыть</string>
    </property>
   </action>
-  <action name="action_19">
+  <action name="add_other">
    <property name="text">
     <string>Добавить новую папку</string>
    </property>
   </action>
-  <action name="action_20">
+  <action name="delete_other">
    <property name="text">
     <string>Удалить папку</string>
    </property>
