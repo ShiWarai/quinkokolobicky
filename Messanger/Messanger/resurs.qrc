@@ -2,5 +2,6 @@
 <qresource>
     <file>data/app.ico</file>
 	<file>data/update_pic.png</file>
+	<file>data/main.png</file>
 </qresource>
 </RCC>

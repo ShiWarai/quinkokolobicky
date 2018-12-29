@@ -27,7 +27,7 @@ class Auth(QtWidgets.QMainWindow, design.Ui_MainWindow):
             sleep(1)
             self.close()
         try:
-            file_pass=open(r'data\last_pass.dat','r')
+            file_pass=open(r'last_pass.dat','r')
             file_pass_=file_pass.read()
             file_pass.close()
             self.login.setText(file_pass_.split('|')[0])
@@ -69,7 +69,7 @@ class Auth(QtWidgets.QMainWindow, design.Ui_MainWindow):
         if self.yandex.exists('app:/users/'+str(self.login.text())+'@quinkokolobicky.net') and self.yandex.exists('app:/users/'+str(self.login.text())+r'@quinkokolobicky.net/password_'+str(self.password.text())):
             main_=MainWindow(self,str(self.login.text())+'@quinkokolobicky.net',str(self.password.text()))
             if self.checkBox.isChecked():
-                f1=open(r'data\last_pass.dat','w')
+                f1=open(r'last_pass.dat','w')
                 f1.write(str(self.login.text())+'|'+str(self.password.text()))
                 f1.close()
             main_.show()
@@ -85,10 +85,11 @@ class MainWindow(QtWidgets.QMainWindow, design2.Ui_MainWindow):
         # Это здесь нужно для доступа к переменным, методам
         # и т.д. в файле design.py
         self.parent=parent
+        self.yandex=parent.yandex
         super().__init__(parent)
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
         # self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.email=r'app:/users/'+login+'/'
+        self.email=r'app:/users/'+login
         self.setFocus()
         self.version_=100
         self.login=login
@@ -96,7 +97,55 @@ class MainWindow(QtWidgets.QMainWindow, design2.Ui_MainWindow):
         self.setWindowTitle('Quinkokolobicky - '+self.login)
         self.update_start.triggered.connect(self.update_program)
         self.updated_is.triggered.connect(self.check_update)
+        self.clear_input.triggered.connect(self.cleaning_input)
+        self.clear_output.triggered.connect(self.cleaning_output)
+        self.clear_bl.triggered.connect(self.cleaning_spam)
+        self.clear_trash.triggered.connect(self.cleaning_trash)
         self.setFocus()
+    def cleaning_input(self):
+        try:
+            oper=self.yandex.remove(self.email+r'/Входящие',permanently=True,force_async=True)
+            while self.yandex.get_operation_status(operation_id=oper.href)=='in-progress':
+                pass
+        except:
+            pass
+        try:
+            self.yandex.mkdir(self.email+r'/Входящие')
+        except:
+            pass
+    def cleaning_output(self):
+        try:
+            oper=self.yandex.remove(self.email+r'/Отправленные',permanently=True,force_async=True)
+            while self.yandex.get_operation_status(operation_id=oper.href)=='in-progress':
+                pass
+        except:
+            pass
+        try:
+            self.yandex.mkdir(self.email+r'/Отправленные')
+        except:
+            pass
+    def cleaning_spam(self):
+        try:
+            oper=self.yandex.remove(self.email+r'/Спам',permanently=True,force_async=True)
+            while self.yandex.get_operation_status(operation_id=oper.href)=='in-progress':
+                pass
+        except:
+            pass
+        try:
+            self.yandex.mkdir(self.email+r'/Спам')
+        except:
+            pass
+    def cleaning_trash(self):
+        try:
+            oper=self.yandex.remove(self.email+r'/Корзина',permanently=True,force_async=True)
+            while self.yandex.get_operation_status(operation_id=oper.href)=='in-progress':
+                pass
+        except:
+            pass
+        try:
+            self.yandex.mkdir(self.email+r'/Корзина')
+        except:
+            pass
     def changeEvent(self,event):
         if event.type() == QtCore.QEvent.WindowStateChange: 
             if self.windowState() & QtCore.Qt.WindowMinimized: 

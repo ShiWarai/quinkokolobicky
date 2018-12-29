@@ -21,10 +21,15 @@ VSVersionInfo(
         StringStruct(u'LegalCopyright', u'All rights reserved'),
         StringStruct(u'OriginalFilename', u'Messenger'),
         StringStruct(u'ProductName', u'Messenger'),
-        StringStruct(u'ProductVersion', u'1.0.1')])
+        StringStruct(u'ProductVersion', u'1.1.0')])
       ]), 
     VarFileInfo([VarStruct(u'Translation', [1033, 1200])])
   ]
+
+
+
+
+
 
 
 
