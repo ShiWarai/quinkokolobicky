@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>316</width>
-    <height>163</height>
+    <height>176</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>316</width>
-    <height>163</height>
+    <height>176</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>316</width>
-    <height>163</height>
+    <height>176</height>
    </size>
   </property>
   <property name="focusPolicy">
@@ -40,7 +40,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>110</y>
+      <y>100</y>
       <width>121</width>
       <height>41</height>
      </rect>
@@ -61,7 +61,7 @@
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>110</y>
+      <y>100</y>
       <width>121</width>
       <height>41</height>
      </rect>
@@ -82,7 +82,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>30</y>
+      <y>20</y>
       <width>251</width>
       <height>71</height>
      </rect>
@@ -136,6 +136,56 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>316</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="updater">
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>Обновить</string>
+    </property>
+    <property name="icon">
+     <iconset resource="resurs.qrc">
+      <normaloff>:/data/update_pic.png</normaloff>:/data/update_pic.png</iconset>
+    </property>
+    <property name="toolTipsVisible">
+     <bool>false</bool>
+    </property>
+    <addaction name="updater_2"/>
+   </widget>
+   <widget class="QMenu" name="about_pr">
+    <property name="title">
+     <string>О программе</string>
+    </property>
+    <addaction name="about_pr_2"/>
+    <addaction name="about_at"/>
+   </widget>
+   <addaction name="updater"/>
+   <addaction name="about_pr"/>
+  </widget>
+  <action name="updater_2">
+   <property name="text">
+    <string>Обновить</string>
+   </property>
+  </action>
+  <action name="about_pr_2">
+   <property name="text">
+    <string>О программе</string>
+   </property>
+  </action>
+  <action name="about_at">
+   <property name="text">
+    <string>О авторе</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="resurs.qrc"/>

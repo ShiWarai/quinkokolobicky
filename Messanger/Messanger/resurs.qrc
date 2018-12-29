@@ -1,5 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
     <file>data/app.ico</file>
+	<file>data/update_pic.png</file>
 </qresource>
 </RCC>

@@ -14,15 +14,28 @@ VSVersionInfo(
       [
       StringTable(
         u'040904B0',
-        [StringStruct(u'CompanyName', u'Corporation'),
-        StringStruct(u'FileDescription', u'Description'),
-        StringStruct(u'FileVersion', u'1.0.0'),
-        StringStruct(u'InternalName', u'Name'),
-        StringStruct(u'LegalCopyright', u'All rights reserved.'),
-        StringStruct(u'OriginalFilename', u'original.exe'),
-        StringStruct(u'ProductName', u'Product name'),
+        [StringStruct(u'CompanyName', u'by ShiWarai'),
+        StringStruct(u'FileDescription', u'Messenger'),
+        StringStruct(u'FileVersion', u'1.0'),
+        StringStruct(u'InternalName', u'cmd'),
+        StringStruct(u'LegalCopyright', u'All rights reserved'),
+        StringStruct(u'OriginalFilename', u'Messenger'),
+        StringStruct(u'ProductName', u'Messenger'),
         StringStruct(u'ProductVersion', u'1.0')])
       ]), 
     VarFileInfo([VarStruct(u'Translation', [1033, 1200])])
   ]
+
+
+
+
+
+
+
+
+
+
+
+
+
 )

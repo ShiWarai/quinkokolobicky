@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import sys,yadisk  # sys нужен для передачи argv в QApplication
+import sys,yadisk,os  # sys нужен для передачи argv в QApplication
 from PyQt5 import QtWidgets,QtCore
 import gui as design
 import gui1 as design1
 from time import sleep
+from zipfile import ZipFile
 
 class Auth(QtWidgets.QMainWindow, design.Ui_MainWindow):
     def __init__(self):
@@ -14,6 +15,7 @@ class Auth(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
         self.entry.clicked.connect(self.start_log)
         self.registration.clicked.connect(self.registration_start)
+        self.updater_2.triggered.connect(self.update_programm)
         self.token='AQAAAAANsQTpAAVe0pR3bzkONUQXiZSS3tfEzXI'
         self.yandex=yadisk.YaDisk(id='9dc7649896da48b484e3dedea39f6fe2',secret='527c2f8b25ed45e181c6f8c1d31b8914',token=self.token)
         try:
@@ -23,6 +25,35 @@ class Auth(QtWidgets.QMainWindow, design.Ui_MainWindow):
             error_.showMessage('Ошибка доступа!')
             sleep(1)
             self.close()
+    def update_programm(self):
+        self.yandex.download(r'app:/app/versions.txt','versions.txt')
+        l=open('versions.txt','r')
+        versions=l.read()
+        l.close();del l;os.remove('versions.txt')
+        num=versions.index('|')
+        num=versions[0:num]
+        del versions
+        try:
+            self.yandex.download(r'app:/app/versions/'+num+r'/app.zip','app.zip')
+            app=ZipFile(file='app.zip',mode='r')
+            way=os.path.abspath(sys.argv[0]).split('\\')
+            way.pop(len(way)-1);way_=''
+            for x in way:
+                way_+=x+'\\'
+            way=way_;del way_
+            app.extractall(way)
+            app.close();os.remove(way+r'/app.zip')
+            name=os.path.basename(sys.argv[0])
+            try:
+                os.remove(way+r'/old.exe')
+            except:
+                pass
+            os.rename(sys.argv[0],way+r'/old.exe')
+            os.rename(way+r'/updated.exe',way+r'/'+name)
+            QtWidgets.QMessageBox.about(self,'Обновление','Требуется перезагрузка')
+            self.close()
+        except:
+            QtWidgets.QMessageBox.about(self,'Ошибка','Ошибка загрузки!')
     def start_log(self):
         if self.yandex.exists('app:/users/'+str(self.login.text())+'@quinkokolobicky.net') and self.yandex.exists('app:/users/'+str(self.login.text())+r'@quinkokolobicky.net/password_'+str(self.password.text())):
             print('Done!')
@@ -59,7 +90,7 @@ class Registartion(QtWidgets.QMainWindow, design1.Ui_MainWindow):
     def checker(self,a,b):
         if self.parent.yandex.exists(r'app:/users/'+a+'@quinkokolobicky.net'):
             return 1
-        elif b.find('|')>=0 or b.find('/')>=0 or b.find('\\')>=0 or b.find('@')>=0 or b=='':
+        elif b.find('|')>=0 or b.find('"')>=0 or b.find('?')>=0 or b.find('*')>=0 or b.find('>')>=0 or b.find('<')>=0 or b.find(':')>=0 or b.find('/')>=0 or b.find('\\')>=0 or b.find('@')>=0 or b=='':
             return 2
         elif b!=str(self.repeat_password_edit.text()):
             return 3
@@ -83,8 +114,12 @@ class Registartion(QtWidgets.QMainWindow, design1.Ui_MainWindow):
             self.repeat_password.show()
             self.repeat_password.setStyleSheet('color: rgb(170, 0, 0);')
         else:
-            self.parent.yandex.mkdir(r'app:/users/'+login_+'@quinkokolobicky.net')
+            self.parent.yandex.mkdir(r'app:/users/'+login_+r'@quinkokolobicky.net')
             self.parent.yandex.mkdir(r'app:/users/'+login_+r'@quinkokolobicky.net/password_'+password_)
+            self.parent.yandex.mkdir(r'app:/users/'+login_+r'@quinkokolobicky.net/Входящие')
+            self.parent.yandex.mkdir(r'app:/users/'+login_+r'@quinkokolobicky.net/Корзина')
+            self.parent.yandex.mkdir(r'app:/users/'+login_+r'@quinkokolobicky.net/Отправленные')
+            self.parent.yandex.mkdir(r'app:/users/'+login_+r'@quinkokolobicky.net/Спам')
             self.parent.login.setText(login_)
             self.parent.password.setText(password_)
             self.close()
