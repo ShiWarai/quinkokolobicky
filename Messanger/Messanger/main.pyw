@@ -4,6 +4,7 @@ import sys,yadisk,os  # sys нужен для передачи argv в QApplicat
 from PyQt5 import QtWidgets,QtCore
 import gui as design
 import gui1 as design1
+import gui2 as design2
 from time import sleep
 from zipfile import ZipFile
 
