@@ -261,3 +261,5 @@ __pycache__/
 *.pyc
 /Messanger/Messanger/Builder1.exe
 /Messanger/Messanger/Builder.exe
+/Messanger/Messanger/for_building/main
+/Messanger/Messanger/dist
