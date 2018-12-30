@@ -88,10 +88,9 @@ class MainWindow(QtWidgets.QMainWindow, design2.Ui_MainWindow):
         self.yandex=parent.yandex
         super().__init__(parent)
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
-        # self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.email=r'app:/users/'+login
         self.setFocus()
-        self.version_=100
+        self.version_=111
         self.login=login
         self.password=password
         self.setWindowTitle('Quinkokolobicky - '+self.login)
@@ -113,6 +112,7 @@ class MainWindow(QtWidgets.QMainWindow, design2.Ui_MainWindow):
             self.yandex.mkdir(self.email+r'/Входящие')
         except:
             pass
+        QtWidgets.QMessageBox.about(self,'Очистка','Завершена')
     def cleaning_output(self):
         try:
             oper=self.yandex.remove(self.email+r'/Отправленные',permanently=True,force_async=True)
@@ -124,6 +124,7 @@ class MainWindow(QtWidgets.QMainWindow, design2.Ui_MainWindow):
             self.yandex.mkdir(self.email+r'/Отправленные')
         except:
             pass
+        QtWidgets.QMessageBox.about(self,'Очистка','Завершена')
     def cleaning_spam(self):
         try:
             oper=self.yandex.remove(self.email+r'/Спам',permanently=True,force_async=True)
@@ -135,6 +136,7 @@ class MainWindow(QtWidgets.QMainWindow, design2.Ui_MainWindow):
             self.yandex.mkdir(self.email+r'/Спам')
         except:
             pass
+        QtWidgets.QMessageBox.about(self,'Очистка','Завершена')
     def cleaning_trash(self):
         try:
             oper=self.yandex.remove(self.email+r'/Корзина',permanently=True,force_async=True)
@@ -146,6 +148,7 @@ class MainWindow(QtWidgets.QMainWindow, design2.Ui_MainWindow):
             self.yandex.mkdir(self.email+r'/Корзина')
         except:
             pass
+        QtWidgets.QMessageBox.about(self,'Очистка','Завершена')
     def changeEvent(self,event):
         if event.type() == QtCore.QEvent.WindowStateChange: 
             if self.windowState() & QtCore.Qt.WindowMinimized: 
@@ -160,7 +163,7 @@ class MainWindow(QtWidgets.QMainWindow, design2.Ui_MainWindow):
         num=versions[0:num];del versions
         num=num.split('.')
         num.reverse()
-        print(num);version_serv=0
+        version_serv=0
         for x in range(0,len(num),1):
             version_serv+=(int(num[x])*(10**x))
         if self.version_<version_serv:
