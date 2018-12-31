@@ -8,6 +8,18 @@ import gui2 as design2
 from time import sleep
 from zipfile import ZipFile
 
+def reconnect(signal, newhandler=None, oldhandler=None):
+    while True:
+        try:
+            if oldhandler is not None:
+                signal.disconnect(oldhandler)
+            else:
+                signal.disconnect()
+        except TypeError:
+            break
+    if newhandler is not None:
+        signal.connect(newhandler)
+
 class Auth(QtWidgets.QMainWindow, design.Ui_MainWindow):
     def __init__(self):
         # Это здесь нужно для доступа к переменным, методам
@@ -72,6 +84,11 @@ class Auth(QtWidgets.QMainWindow, design.Ui_MainWindow):
                 f1=open(r'last_pass.dat','w')
                 f1.write(str(self.login.text())+'|'+str(self.password.text()))
                 f1.close()
+            else:
+                try:
+                    os.remove(r'last_pass.dat')
+                except:
+                    pass
             main_.show()
             self.hide()
         else:
@@ -87,7 +104,9 @@ class MainWindow(QtWidgets.QMainWindow, design2.Ui_MainWindow):
         self.parent=parent
         self.yandex=parent.yandex
         super().__init__(parent)
+        self.login_urself=login
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+        self.null_state()
         self.email=r'app:/users/'+login
         self.setFocus()
         self.version_=111
@@ -100,7 +119,129 @@ class MainWindow(QtWidgets.QMainWindow, design2.Ui_MainWindow):
         self.clear_output.triggered.connect(self.cleaning_output)
         self.clear_bl.triggered.connect(self.cleaning_spam)
         self.clear_trash.triggered.connect(self.cleaning_trash)
+        self.write.triggered.connect(self.start_sending)
+        self.open_input.triggered.connect(self.start_getting)
         self.setFocus()
+    def null_state(self):
+        self.main_image.show()
+        self.cancel_.hide()
+        self.send_.hide()
+        self.theme.hide()
+        self.email1.hide()
+        self.email_.hide()
+        self.theme_.hide()
+        self.main_text.hide()
+        reconnect(self.cancel_.clicked)
+        reconnect(self.send_.clicked)
+        self.main_table.hide()
+        self.email_.setReadOnly(False)
+        self.theme_.setReadOnly(False)
+        self.main_text.setReadOnly(False)
+    def start_sending(self):
+        self.null_state()
+        self.main_image.hide()
+        self.cancel_.setText('Отмена')
+        self.send_.setText('Отправить')
+        self.cancel_.show()
+        self.send_.show()
+        reconnect(self.cancel_.clicked,self.null_state)
+        reconnect(self.send_.clicked,self.send)
+        self.main_text.show()
+        self.main_text.setPlainText('Нет текста')
+        self.email1.show()
+        self.theme.show()
+        self.email_.show()
+        self.theme_.show()
+        self.theme_.setText(u'Нет темы')
+        self.email_.setText('@quinkokolobicky.net')
+    def start_getting(self):
+        self.null_state()
+        self.main_image.hide()
+        self.main_table.show()
+        self.main_table.horizontalHeaderItem(0).setTextAlignment(QtCore.Qt.AlignCenter)
+        self.main_table.horizontalHeaderItem(1).setTextAlignment(QtCore.Qt.AlignCenter)
+        list_mess=list(self.yandex.listdir(self.email+r'/Входящие'))
+        count_mess=len(list_mess);self.name_mess=[]
+        self.main_table.setRowCount(count_mess)
+        for x in list_mess:
+            self.name_mess.append(x.name)
+        del list_mess
+        self.emails=[]
+        self.themes=[]
+        for x in range(count_mess):
+            a=list(self.yandex.listdir(self.email+r'/Входящие/'+self.name_mess[x]))
+            self.emails.append(a[0].name[2:len(a[0].name)])
+            self.themes.append(a[1].name[2:len(a[1].name)])
+        for x in range(count_mess):
+            self.main_table.setItem(x,0,QtWidgets.QTableWidgetItem(self.emails[x]))
+            self.main_table.setItem(x,1,QtWidgets.QTableWidgetItem(self.themes[x]))
+        reconnect(self.main_table.cellDoubleClicked,self.open_message)
+    def open_message(self,row,column):
+        name=self.name_mess[row]
+        self.null_state()
+        self.main_image.hide()
+        self.cancel_.setText('Отмена')
+        self.cancel_.show()
+        reconnect(self.cancel_.clicked,self.null_state)
+        self.main_text.show()
+        oper=self.yandex.download(self.email+r'/Входящие/'+name+r'/3_main/message.txt','message.txt')
+        file_=open('message.txt','r')
+        mess=file_.read()
+        file_.close()
+        try:
+            os.remove('message.txt')
+        except:
+            pass
+        self.main_text.setPlainText(mess)
+        self.main_text.setReadOnly(True)
+        self.email1.show()
+        self.theme.show()
+        self.email_.show()
+        self.theme_.show()
+        self.theme_.setText(self.themes[row])
+        self.email_.setText(self.emails[row])
+        self.email_.setReadOnly(True)
+        self.theme_.setReadOnly(True)
+    def send(self):
+        email_name=str(self.email_.text())
+        theme_name=str(self.theme_.text())
+        if self.yandex.exists(r'app:/users/'+email_name+r'/Входящие') and self.email!=r'app:/users/'+email_name:
+            last=0;end=False
+            while not end:
+                if self.yandex.exists(r'app:/users/'+email_name+r'/Входящие/message_'+str(last)):
+                    last+=1
+                else:
+                    end=True
+            last=str(last);
+            inp=r'app:/users/'+email_name+r'/Входящие/message_'+last
+            self.yandex.mkdir(inp)
+            self.yandex.mkdir(inp+r'/1_'+self.login_urself)
+            self.yandex.mkdir(inp+r'/2_'+theme_name)
+            self.yandex.mkdir(inp+r'/3_main')
+            file_=open('message.txt','w')
+            file_.write(self.main_text.toPlainText())
+            file_.close()
+            self.yandex.upload('message.txt',inp+r'/3_main/message.txt')
+            os.remove('message.txt')
+
+            last=0;end=False
+            while not end:
+                if self.yandex.exists(self.email+r'/Отправленные/message_'+str(last)):
+                    last+=1
+                else:
+                    end=True
+            last=str(last)
+            out=self.email+r'/Отправленные/message_'+last
+            self.yandex.mkdir(out)
+            oper=self.yandex.copy(inp,out,overwrite=True,force_async=True)
+            while self.yandex.get_operation_status(operation_id=oper.href)=='in-progress':
+                pass
+            self.yandex.remove(out+r'/1_'+self.login_urself)
+            self.yandex.mkdir(out+r'/1_'+email_name)
+            QtWidgets.QMessageBox.about(self,'Отправка','Завершена успешно')
+            self.null_state()
+        else:
+            QtWidgets.QMessageBox.about(self,'Ошибка','Неправильный e-mail')
     def cleaning_input(self):
         try:
             oper=self.yandex.remove(self.email+r'/Входящие',permanently=True,force_async=True)
