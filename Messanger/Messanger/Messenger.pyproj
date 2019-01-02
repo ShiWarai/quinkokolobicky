@@ -23,19 +23,26 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.ico" />
+    <Content Include="Build_EXE.bat" />
     <Content Include="data.qrc" />
     <Content Include="design.ui" />
     <Content Include="design1.ui" />
     <Content Include="design2.ui" />
+    <Content Include="design3.ui" />
+    <Content Include="design4.ui" />
     <Content Include="UI_Builder.bat" />
     <Content Include="UI_Builder1.bat" />
     <Content Include="UI_Builder2.bat" />
+    <Content Include="UI_Builder3.bat" />
+    <Content Include="UI_Builder4.bat" />
     <Content Include="version.rc" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gui.py" />
     <Compile Include="gui1.py" />
     <Compile Include="gui2.py" />
+    <Compile Include="gui3.py" />
+    <Compile Include="gui4.py" />
     <Compile Include="main.pyw" />
     <Compile Include="resurs_rc.py" />
   </ItemGroup>
